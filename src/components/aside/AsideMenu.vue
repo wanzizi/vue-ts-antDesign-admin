@@ -22,12 +22,12 @@
                     <a-icon v-if="subItem.icon" :type="subItem.icon" />
                     <span>{{subItem.title}}</span>
                 </span>
-                <menu-item v-for="lastItem in subItem.children" @click="selectMenu(lastItem,subItem)" :key="lastItem.key">
+                <menu-item v-for="lastItem in subItem.children" @click="selectMenu(lastItem)" :key="lastItem.key">
                   <a-icon v-if="lastItem.icon" :type="lastItem.icon" />
                   {{lastItem.title}}
                 </menu-item>
               </sub-menu>
-              <menu-item v-else @click="selectMenu(subItem,item)" :key="subItem.key">
+              <menu-item v-else @click="selectMenu(subItem)" :key="subItem.key">
                 <a-icon v-if="subItem.icon" :type="subItem.icon" />
                 {{subItem.title}}
               </menu-item>
@@ -42,7 +42,7 @@
 <script lang="ts">
 import { Menu, Icon } from 'ant-design-vue'
 import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator'
-import { debounce } from '@/utils/index.ts'
+import { debounce, getArrByActive } from '@/utils/index.ts'
 // import MenuGroup from './MenuGroup.vue'
 
 interface MenuObj {
@@ -66,8 +66,8 @@ export default class AsideMenu extends Vue {
 
   logoComplete:string = 'http://www.lishiots.com/_nuxt/img/logo.321c26b.png'
   logoHalf:string = require('assets/logo.png')
-  current: string[] = ['1']
-  openKeys: string[] = ['sub1']
+  current: string[] = []
+  openKeys: string[] = []
   isCollapse: boolean = false // 菜单是否收缩，和页面大小与头部手动设置联合产生作用
   menu: MenuObj[] = [
     {
@@ -138,11 +138,14 @@ export default class AsideMenu extends Vue {
     }
   ]
 
-  // @Watch('isOpen')
-  // onIsOpenChanged (val: boolean) {
-  //   // 初始化
-  //   this.setCollapse()
-  // }
+  @Watch('$route', { immediate: true })
+  onRouteChanged (val: any) {
+    if (this.$route.path) {
+      let arr = getArrByActive(this.menu, this.$route.path.split('/').pop() || '', 'key')
+      this.current = [arr[arr.length - 1]]
+      this.openKeys = [arr[0]]
+    }
+  }
 
   @Emit()
   modifyIsOpen (val:boolean):boolean {
@@ -154,13 +157,14 @@ export default class AsideMenu extends Vue {
     window.onresize = debounce(this.setCollapse, 50)
   }
   setCollapse () {
-    // 手动触发时不管window大小按照手动意愿展示，
+    // 手动触发时不管window大小按照手动意愿展示，所以没有监听isOpen状态
     // 在变化窗体的时候如果手动设置和窗口展示不一致，修改状态
     this.modifyIsOpen(window.innerWidth > 900)
   }
-  selectMenu (item:MenuObj, parent:MenuObj):void{
-    console.log(item, parent)
-    this.$router.push(`/${parent.key}/${item.key}`)
+
+  selectMenu (item:MenuObj):void{
+    console.log(item)
+    // this.$router.push(`/${parent.key}/${item.key}`)
   }
 }
 </script>

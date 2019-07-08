@@ -1,6 +1,6 @@
 <template>
     <header class="manage-header">
-        <a-icon :class="['toggle-icon']" :type="isOpen?'menu-fold':'menu-unfold'" @click="toggleMenu" />
+        <a-icon class="toggle-icon" :type="isOpen?'menu-fold':'menu-unfold'" @click="toggleMenu" />
 
         <div class="right">
             <div class="search-box">
@@ -79,13 +79,13 @@ export default class AsideHeader extends Vue {
     &:hover{
         background: @backColor;
     }
-}
+};
 .manage-header{
     position: relative;
     height: @height;
     line-height: @height;
     box-shadow: rgba(0, 21, 41, 0.08) 0px 1px 4px;
-    .toggle-icon{
+    /deep/.toggle-icon{ //作用域没有冠上父类的作用域，导致样式失效
         font-size: 20px;
         margin-left: 25px;
         cursor: pointer;
@@ -97,7 +97,7 @@ export default class AsideHeader extends Vue {
         right: 25px;
         display: flex;
         .search-box{
-            .search-icon{
+            /deep/.search-icon{
                 cursor: pointer;
                 padding: 0 12px;
                 font-size: @fontSize;

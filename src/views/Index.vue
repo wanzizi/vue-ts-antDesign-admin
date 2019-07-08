@@ -4,7 +4,9 @@
     <div class="manage-main">
       <AsideHeader :isOpen="isOpen" :toggleMenu="toggleMenu"></AsideHeader>
       <div class="manage-content">
-        <div></div>
+        <div class="common-part">
+
+        </div>
         <router-view/>
       </div>
     </div>
