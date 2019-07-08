@@ -142,8 +142,17 @@ export default class AsideMenu extends Vue {
   onRouteChanged (val: any) {
     if (this.$route.path) {
       let arr = getArrByActive(this.menu, this.$route.path.split('/').pop() || '', 'key')
-      this.current = [arr[arr.length - 1]]
-      this.openKeys = [arr[0]]
+      if (arr && arr.length) {
+        this.current = []
+        this.openKeys = []
+        arr.forEach((item, index) => {
+          if (index === arr.length - 1) {
+            this.current.push(item)
+          } else {
+            this.openKeys.push(item)
+          }
+        })
+      }
     }
   }
 
@@ -163,8 +172,13 @@ export default class AsideMenu extends Vue {
   }
 
   selectMenu (item:MenuObj):void{
-    console.log(item)
-    // this.$router.push(`/${parent.key}/${item.key}`)
+    let arr = getArrByActive(this.menu, item.key, 'key')
+
+    if (arr && arr.length) {
+      this.$router.push('/' + arr.join('/'))
+    } else {
+      // 特殊情况的处理
+    }
   }
 }
 </script>
@@ -172,6 +186,7 @@ export default class AsideMenu extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .aside-menu{
+  z-index: 9;
   flex: 0 0 256px;
   background: #001529;
   transition: all 0.5s ease;

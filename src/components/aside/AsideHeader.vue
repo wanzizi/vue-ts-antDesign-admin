@@ -24,17 +24,34 @@
                 <i class="notice-nums">{{newsNum}}</i>
                 <a-icon class="notice-icon" type="bell" />
             </span>
-            <span class="avadar-box">
-                <img class="avadar" :src="avadar" alt="">
-                <span>{{userName}}</span>
-            </span>
+            <a-dropdown>
+                <span class="avadar-box">
+                    <img class="avadar" :src="avadar" alt="">
+                    <span>{{userName}}</span>
+                </span>
+                <a-menu slot="overlay">
+                <a-menu-item key="0">
+                    <a-icon type="user" />
+                    个人中心
+                </a-menu-item>
+                <a-menu-item key="1">
+                    <a-icon type="setting" />
+                    个人设置
+                </a-menu-item>
+                <a-menu-divider />
+                <a-menu-item key="3">
+                    <a-icon type="logout" />
+                    退出登录
+                </a-menu-item>
+                </a-menu>
+            </a-dropdown>
         </div>
     </header>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
-import { Icon, Tooltip } from 'ant-design-vue'
+import { Icon, Tooltip, Dropdown, Menu } from 'ant-design-vue'
 
 interface toggleFunc {
     ():void
@@ -43,7 +60,11 @@ interface toggleFunc {
 @Component({
   components: {
     'a-icon': Icon,
-    'a-tooltip': Tooltip
+    'a-tooltip': Tooltip,
+    'a-dropdown': Dropdown,
+    'a-menu': Menu,
+    'a-menu-item': Menu.Item,
+    'a-menu-divider': Menu.Divider
   },
   directives: {
     focus: {
