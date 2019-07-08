@@ -39,7 +39,7 @@ export default class Index extends Vue {
 
    @Watch('$route', { immediate: true })
   onRouteChanged (val: any) {
-    console.log(val, this.$router)
+    // console.log(val)
   }
 
    toggleMenu ():void{
@@ -56,10 +56,10 @@ export default class Index extends Vue {
 .manage-container{
   height: 100%;
   display: flex;
+  background: #f0f2f5;
   .manage-main{
     width: 100%;
     .manage-content{
-      background: #f0f2f5;
       .common-part{
           padding: 16px 24px;
           background: #fff;

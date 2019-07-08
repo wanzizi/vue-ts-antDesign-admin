@@ -106,6 +106,7 @@ export default class AsideHeader extends Vue {
     height: @height;
     line-height: @height;
     box-shadow: rgba(0, 21, 41, 0.08) 0px 1px 4px;
+    background: #fff;
     /deep/.toggle-icon{ //作用域没有冠上父类的作用域，导致样式失效
         font-size: 20px;
         margin-left: 25px;
