@@ -52,10 +52,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { Icon, Tooltip, Dropdown, Menu } from 'ant-design-vue'
-
-interface toggleFunc {
-    ():void
-}
+import { noneFunc } from '@/interface'
 
 @Component({
   components: {
@@ -76,7 +73,7 @@ interface toggleFunc {
 })
 export default class AsideHeader extends Vue {
     @Prop() private isOpen!:boolean
-    @Prop() private toggleMenu!:toggleFunc
+    @Prop() private toggleMenu!:noneFunc
 
     isOpenInput:boolean=false
     userName:string='Serati Ma'

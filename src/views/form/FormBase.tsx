@@ -106,7 +106,7 @@ class FormBase extends Vue{
                             </a-radio-group>)
                     }                    
                 </a-form-item>
-                <a-form-item >
+                <a-form-item>
                     <a-col offset="5">
                         <a-button
                             type="primary"
