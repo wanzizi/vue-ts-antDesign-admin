@@ -15,6 +15,15 @@ export default {
         desc: ''
       },
       component: () => import('@/views/list/ListTable.vue')
+    },
+    {
+      path: 'list-card',
+      name: 'list-card',
+      meta: {
+        chineseName: '卡片列表',
+        desc: ''
+      },
+      component: () => import('@/views/list/ListCard.vue')
     }
   ]
 }
