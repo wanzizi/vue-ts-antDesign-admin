@@ -6,8 +6,8 @@
       >
         <a-list-item slot="renderItem" slot-scope="item,index">
             <section class="card-item">
-                <a-button v-show="index===0" class="add-btn" type="dashed" icon="plus">新增产品</a-button>
-                <a-card v-show="index!==0" hoverable>
+                <a-button v-if="index===0" class="add-btn" type="dashed" icon="plus">新增产品</a-button>
+                <a-card v-else hoverable>
                   <template class="ant-card-actions" slot="actions">
                       <span>操作1</span>
                       <span>操作2</span>
@@ -29,7 +29,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Avatar, Button, Icon, Card, List } from 'ant-design-vue'
 
-const data1:any = []
+const data1:Array<Number> = []
 for (let i = 0; i < 9; i++) {
   data1.push(i)
 }
