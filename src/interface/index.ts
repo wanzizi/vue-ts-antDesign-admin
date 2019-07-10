@@ -9,6 +9,15 @@ export interface colObj{
     sm:spanObj,
 }
 
+// 分页配置对象
+export interface paginationObj{
+    currents?:number,
+    pageSize?:number,
+    total?:number,
+    showSizeChanger?:Boolean
+    showQuickJumper?:Boolean,
+}
+
 // 无参数无返回值的方法接口，尽量少用
 export interface noneFunc{
     ():void
