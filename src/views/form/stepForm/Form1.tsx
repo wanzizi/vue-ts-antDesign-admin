@@ -41,9 +41,8 @@ class Form1 extends Vue{
         this.Form.validateFields((err:any, fieldsValue:object) => {
           if (!err) {
             console.log('Received values of form: ', fieldsValue)
-            console.log(this,this.$props)
-            console.log(this.nextFunc)
-            this.nextFunc()
+            // this.nextFunc()
+            this.$emit('on-form-success',fieldsValue)
           }
         })
     }
@@ -66,7 +65,7 @@ class Form1 extends Vue{
                 <a-form-item label="收款账户" labelCol={this.labelCol} wrapperCol={this.wrapperCol}>
                     <a-input-group style="width:100%" compact>
                         {
-                            getFieldDecorator('getAccount',{
+                            getFieldDecorator('payAccountType',{
                                 initialValue:'alipay'
                             })(
                                 <a-select style="width: 30%">
@@ -116,4 +115,9 @@ class Form1 extends Vue{
     }
 }
 
-export default Form.create({})(Form1)
+export default Form.create({ props: {
+    nextFunc:{
+        type:Function,
+        default(){}
+    }
+} })(Form1)

@@ -5,8 +5,9 @@
         </a-steps>
 
         <div class="step-content">
-            <form-1 :nextFunc="nextFunc"></form-1>
-            <!-- <div :is="`form-${current+1}`" :nextFunc="nextFunc" :prevFunc="prevFunc"></div> -->
+            <form-1 v-on:on-form-success="handleFormSuccess"></form-1>
+            <form-2 :forms="forms"></form-2>
+            <!-- <div v-on:on-form-success="handleFormSuccess" :is="`form-${current+1}`" :nextFunc="nextFunc" :prevFunc="prevFunc"></div> -->
         </div>
     </div>
 </template>
@@ -15,16 +16,25 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Steps } from 'ant-design-vue'
 import Form1 from './stepForm/Form1'
+import Form2 from './stepForm/Form2.vue'
 
 interface stepObj{
     title:string
+}
+interface formObj{
+    getAccount:string;
+    payAccountType: string;
+    getAccountAddr:string;
+    getName:string;
+    number:number;
 }
 
 @Component({
   components: {
     'a-steps': Steps,
     'a-step': Steps.Step,
-    'form-1': Form1
+    'form-1': Form1,
+    'form-2': Form2
   }
 })
 export default class FormStep extends Vue {
@@ -40,6 +50,12 @@ export default class FormStep extends Vue {
         title: '完成'
       }
     ]
+    forms:formObj|undefined=undefined
+
+    handleFormSuccess (form:formObj) {
+      console.log(form)
+      this.forms = { ...form }
+    }
 
     nextFunc ():void {
       this.current++
