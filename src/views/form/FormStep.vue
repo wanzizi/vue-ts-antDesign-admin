@@ -5,8 +5,9 @@
         </a-steps>
 
         <div class="step-content">
-            <form-1 v-on:on-form-success="handleFormSuccess"></form-1>
-            <form-2 :forms="forms"></form-2>
+            <form-1 v-show="current===0" v-on:on-form-success="handleFormSuccess"></form-1>
+            <form-2 v-if="current===1" :forms="forms" :nextFunc="nextFunc" :prevFunc="prevFunc"></form-2>
+            <form-3 v-show="current===2" ></form-3>
             <!-- <div v-on:on-form-success="handleFormSuccess" :is="`form-${current+1}`" :nextFunc="nextFunc" :prevFunc="prevFunc"></div> -->
         </div>
     </div>
@@ -17,6 +18,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Steps } from 'ant-design-vue'
 import Form1 from './stepForm/Form1'
 import Form2 from './stepForm/Form2.vue'
+import Form3 from './stepForm/Form3.vue'
 
 interface stepObj{
     title:string
@@ -34,7 +36,8 @@ interface formObj{
     'a-steps': Steps,
     'a-step': Steps.Step,
     'form-1': Form1,
-    'form-2': Form2
+    'form-2': Form2,
+    'form-3': Form3
   }
 })
 export default class FormStep extends Vue {
@@ -55,6 +58,7 @@ export default class FormStep extends Vue {
     handleFormSuccess (form:formObj) {
       console.log(form)
       this.forms = { ...form }
+      this.nextFunc()
     }
 
     nextFunc ():void {

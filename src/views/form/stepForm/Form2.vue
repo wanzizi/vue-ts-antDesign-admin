@@ -1,11 +1,12 @@
 <template>
     <a-row class="form-step2">
-        <template v-if="forms">
-            <template v-for="(item,index,key) in formLabels">
-                <a-col :xs="24" :sm="5" :key="key">{{item}}:</a-col>
-                <a-col :xs="24" :sm="12" :key="key">{{forms[key]}}</a-col>
-            </template>
+        <template v-for="(item,index,key) in formLabels">
+            <a-col :xs="24" :sm="5" :key="key">{{item}}:</a-col>
+            <a-col :xs="24" :sm="12" :key="key">{{forms[key]}}</a-col>
         </template>
+        <!-- <a-col :xs="24" :sm="12" :offset="">
+
+        </a-col> -->
     </a-row>
 </template>
 
@@ -31,6 +32,8 @@ interface formObj{
 
 export default class Form2 extends Vue {
     @Prop() private forms!:formObj
+    @Prop() private nextFunc!:Function
+    @Prop() private prevFunc!:Function
 
     formLabels={
       getAccount: '付款账户',
