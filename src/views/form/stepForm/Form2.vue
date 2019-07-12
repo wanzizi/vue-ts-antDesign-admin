@@ -5,6 +5,7 @@
         message="确认转账后，资金将直接打入对方账户，无法退回。"
         type="info"
         closable
+        showIcon
       />
       <a-row class="form-row" v-for="(item,key) in formLabels" :key="key">
           <a-col :xs="24" :sm="5" class="label">{{item}}:</a-col>
@@ -19,20 +20,25 @@
               <span>{{forms[key]}}</span>
             </template>
           </a-col>
-          <!-- <a-col :xs="24" :sm="12" :offset=""></a-col> -->
       </a-row>
-      <a-row class="password-box">
-        <a-col :xs="24" :sm="5" class="label">支付密码:</a-col>
+      <a-row class="password-box border">
+        <a-col :xs="24" :sm="5" class="label password">支付密码:</a-col>
         <a-col :xs="24" :sm="12" :key="key">
-            <a-input placeholder="请输入支付密码"/>
+            <a-input v-model="password" type="password" placeholder="请输入支付密码"/>
         </a-col>
       </a-row>
-      <a-row>
+      <a-row class="btn-box">
         <a-col :xs="24" :sm="5" class="label"></a-col>
         <a-col :xs="24" :sm="12">
           <a-button
               type="primary"
+              :loading="loading"
+              @click="submit"
           >提交</a-button>
+          <a-button
+              class="btn"
+              @click="prevFunc"
+          >上一步</a-button>
         </a-col>
       </a-row>
   </div>
@@ -72,6 +78,17 @@ export default class Form2 extends Vue {
       getName: '收款人姓名',
       number: '转账金额'
     }
+    password:string='123456'
+    loading:boolean=false
+
+    submit () {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+
+        this.nextFunc()
+      }, 500)
+    }
 }
 </script>
 
@@ -85,27 +102,37 @@ export default class Form2 extends Vue {
     }
     .form-row{
         padding-bottom: 16px;
-        .label{
-          // color: rgba(0,0,0,.85);
-          font-weight: 400;
-          font-size: 14px;
-        }
-        .number{
-          position: relative;
-          top: -3px;
-          // color: rgba(0,0,0,.85);
-          font-size: 24px;
-          line-height: 1;
-          .subfix{
-            margin-left: 4px;
-            font-size: 16px;
-          }
-        }
+    }
+    .label{
+      // color: rgba(0,0,0,.85);
+      font-weight: 400;
+      font-size: 14px;
+    }
+    .password{
+      position: relative;
+      top: 3px;
+    }
+    .number{
+      position: relative;
+      top: -3px;
+      // color: rgba(0,0,0,.85);
+      font-size: 24px;
+      line-height: 1;
+      .subfix{
+        margin-left: 4px;
+        font-size: 16px;
+      }
     }
     .password-box{
       margin-top: 10px;
       padding: 25px 50px;
       border-top: 1px solid #e8e8e8;
+    }
+    .btn-box{
+      padding: 0 50px;
+      .btn{
+        margin-left: 10px;
+      }
     }
 }
 </style>

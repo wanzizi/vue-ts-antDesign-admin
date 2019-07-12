@@ -7,7 +7,7 @@
         <div class="step-content">
             <form-1 v-show="current===0" v-on:on-form-success="handleFormSuccess"></form-1>
             <form-2 v-if="current===1" :forms="forms" :nextFunc="nextFunc" :prevFunc="prevFunc"></form-2>
-            <form-3 v-show="current===2" ></form-3>
+            <form-3 v-if="current===2" :forms="forms" v-on:goto-first="gotoFisrt"></form-3>
             <!-- <div v-on:on-form-success="handleFormSuccess" :is="`form-${current+1}`" :nextFunc="nextFunc" :prevFunc="prevFunc"></div> -->
         </div>
     </div>
@@ -66,6 +66,9 @@ export default class FormStep extends Vue {
     }
     prevFunc ():void {
       this.current--
+    }
+    gotoFisrt ():void{
+      this.current = 0
     }
 }
 </script>
