@@ -54,11 +54,11 @@ class Form1 extends Vue{
                 <a-form-item label="付款账户" labelCol={this.labelCol} wrapperCol={this.wrapperCol}>
                     {
                         getFieldDecorator('payAccount',{
-                            initialValue:'1'
+                            initialValue:'account1@qq.com'
                         })(<a-select>
-                        <a-select-option value="1">account1@qq.com</a-select-option>
-                        <a-select-option value="2">account2@qq.com</a-select-option>
-                        <a-select-option value="3">account3@qq.com</a-select-option>
+                        <a-select-option value="account1@qq.com">account1@qq.com</a-select-option>
+                        <a-select-option value="account2@qq.com">account2@qq.com</a-select-option>
+                        <a-select-option value="account3@qq.com">account3@qq.com</a-select-option>
                       </a-select>)
                     }
                 </a-form-item>
