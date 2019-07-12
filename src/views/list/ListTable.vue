@@ -1,7 +1,6 @@
 <template>
     <a-card class="list-table" :bordered="false">
-        <!-- :form="form" -->
-        <a-form  layout="horizontal">
+        <a-form :form="form" layout="horizontal">
             <a-row >
                 <a-col :md="8" :sm="24" >
                     <a-form-item
@@ -112,6 +111,14 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Row, Col, Form, Select, Input, InputNumber, DatePicker, Table, Button, Icon, Alert, Card, Dropdown, Menu } from 'ant-design-vue'
 import { colObj, paginationObj } from '@/interface'
 
+interface formObj{
+    key: number,
+    no: string,
+    description: string,
+    callNo: number,
+    status: number,
+    updatedAt: string
+}
 const list:any = []
 for (let i = 0; i < 46; i++) {
   list.push({
@@ -154,7 +161,8 @@ export default class ListTable extends Vue {
       xs: { span: 10 },
       sm: { span: 18 }
     }
-    // form:any=this.$form.createForm(this)
+    private form: any;
+
     expand:Boolean=false
 
     buttonShow:Boolean=false
@@ -198,7 +206,9 @@ export default class ListTable extends Vue {
         scopedSlots: { customRender: 'operation' }
       }
     ]
-
+    beforeCreate () {
+      this.form = this.$form.createForm(this)
+    }
     onSelectChange (selectedRowKeys:Array<Number|String>, selectedRows:Array<any>) {
       this.selectedRowKeys = selectedRowKeys
     }
@@ -210,7 +220,7 @@ export default class ListTable extends Vue {
       this.expand = !this.expand
     }
     handleReset () {
-    //   this.form.resetFields()
+      this.form.resetFields()
     }
 }
 </script>
