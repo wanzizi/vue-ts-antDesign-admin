@@ -2,7 +2,7 @@ export default {
   path: 'list',
   name: 'list',
   meta: {
-    chineseName: '列表页'
+    chineseName: '标准列表'
   },
   desc: '',
   component: () => import('@/views/list/Index.vue'),
@@ -15,6 +15,15 @@ export default {
         desc: ''
       },
       component: () => import('@/views/list/ListTable.vue')
+    },
+    {
+      path: 'list-standard',
+      name: 'list-standard',
+      meta: {
+        chineseName: '卡片列表',
+        desc: ''
+      },
+      component: () => import('@/views/list/ListStandard.vue')
     },
     {
       path: 'list-card',
