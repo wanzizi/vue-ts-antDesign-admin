@@ -22,3 +22,30 @@ export interface paginationObj{
 export interface noneFunc{
     ():void
 }
+
+// 表单校验相关接口
+export interface FormCol{
+    span:number;
+    offset:number;
+    label:number;
+    wrapper:number;
+}
+export interface ValidateItemObj{
+    regex:string;
+    msg:string;
+    trigger:string;
+}
+export interface ValidateObj{
+    required:boolean;
+    customs:ValidateItemObj[]
+}
+export interface FormItemObj{
+    type:string;
+    label:string;
+    value:string|number;
+    key:string;
+    placeholder:string;
+    disabled:boolean;
+    validate:ValidateObj;
+    col:FormCol;
+}
