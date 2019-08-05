@@ -37,7 +37,13 @@ export interface ValidateItemObj{
 }
 export interface ValidateObj{
     required:boolean;
-    customs:ValidateItemObj[]
+    customs:ValidateItemObj[];
+    min:number;
+    max:number;
+}
+export interface OptionObj{
+    label:string;
+    value:string|number;
 }
 export interface FormItemObj{
     type:string;
@@ -45,7 +51,8 @@ export interface FormItemObj{
     value:string|number;
     key:string;
     placeholder:string;
-    disabled:boolean;
-    validate:ValidateObj;
-    col:FormCol;
+    disabled?:boolean;
+    validate?:ValidateObj;
+    col?:FormCol;
+    options?:OptionObj[]
 }

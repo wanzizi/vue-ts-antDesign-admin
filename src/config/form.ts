@@ -14,14 +14,14 @@ let form = {
   controls: [
     {
       'type': 'text',
-      'label': '姓名',
+      'label': 'text',
       'value': '',
       'key': 'name',
       'placeholder': '请输入姓名'
     },
     {
       'type': 'password',
-      'label': '密码',
+      'label': 'password',
       'value': '',
       'key': 'passwordKeyName',
       'placeholder': '请输入密码',
@@ -37,7 +37,7 @@ let form = {
         ]
       },
       'col': {
-        'span': 6,
+        'span': 12,
         'offset': 0,
         'label': 5,
         'wrapper': 12
@@ -45,64 +45,58 @@ let form = {
     },
     {
       'type': 'number',
-      'label': '年龄',
+      'label': 'number',
       'placeholder': '请输入年龄',
       'value': 10,
       'key': 'age',
-      '//': '注释：根据visibleOn来判断该表单项是否有关联上级，比如填写了密码才能显示年龄，不填写则显示其他模块等类似业务',
-      'visibleOn': "this.passwordKeyName!==''",
+      // '注释：根据visibleOn来判断该表单项是否有关联上级，比如填写了密码才能显示年龄，不填写则显示其他模块等类似业务',
+      'visibleOn': {
+        key: 'passwordKeyName',
+        condition: 'passwordKeyName!=""'
+      },
       'validate': {
         'min': 0,
         'max': 100
       },
       'col': {
-        'span': 6,
+        'span': 12,
         'offset': 0,
         'label': 5,
         'wrapper': 12
       }
     },
     {
-      'type': 'alert',
-      'level': 'info',
-      'body': '因为没有配置 api 接口，不能真正的提交哈！'
-    },
-    {
-      'type': 'hidden',
-      'name': 'id'
-    },
-    {
-      'type': 'text',
-      'name': 'text',
-      'label': '文本',
-      'required': true
-    },
-    {
-      'type': 'divider'
-    },
-    {
-      'type': 'image',
-      'name': 'image',
-      'multiple': false,
-      'label': '图片',
-      'required': true
-    },
-    {
-      'type': 'divider'
-    },
-    {
       'type': 'date',
-      'name': 'date',
-      'label': '日期',
+      // 'name': 'date',
+      'key': 'date',
+      'label': 'date',
       'required': true
     },
-    {
-      'type': 'divider'
-    },
+    // {
+    //   'type': 'alert',
+    //   'level': 'info',
+    //   'body': '因为没有配置 api 接口，不能真正的提交哈！'
+    // },
+    // {
+    //   'type': 'hidden',
+    //   'name': 'id'
+    // },
+    // {
+    //   'type': 'divider'
+    // },
+    // {
+    //   'type': 'image',
+    //   'name': 'image',
+    //   'multiple': false,
+    //   'label': '图片',
+    //   'required': true
+    // },
     {
       'type': 'select',
-      'name': 'type',
-      'label': '选项',
+      // 'name': 'type',
+      'label': 'select',
+      'key': 'selecttest',
+      'value': '1',
       'options': [
         {
           'label': '漂亮',
@@ -121,6 +115,65 @@ let form = {
           'value': '紧张'
         }
       ]
+    },
+    {
+      'type': 'switch',
+      //  'name': 'switch',
+      'label': 'switch',
+      'value': true,
+      'key': 'switch'
+    },
+    {
+      'type': 'slider',
+      'label': 'slider',
+      'value': 30,
+      'key': 'slider'
+    },
+    {
+      'type': 'radio',
+      'label': 'radio',
+      'value': 'apple',
+      'key': 'radio',
+      'options': [
+        {
+          'label': '苹果',
+          'value': 'apple'
+        },
+        {
+          'label': '橘子',
+          'value': 'orange'
+        },
+        {
+          'label': '香蕉',
+          'value': 'banana'
+        }
+      ]
+    },
+    {
+      'type': 'check',
+      'label': 'check',
+      'value': ['apple1'],
+      'key': 'check',
+      'options': [
+        {
+          'label': '苹果1',
+          'value': 'apple1'
+        },
+        {
+          'label': '橘子1',
+          'value': 'orange1'
+        },
+        {
+          'label': '香蕉1',
+          'value': 'banana1'
+        }
+      ]
+    },
+    {
+      'type': 'rate',
+      'label': 'rate',
+      'value': 3,
+      'key': 'rate'
     }
   ]
 }
