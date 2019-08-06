@@ -2,6 +2,7 @@ import { Vue,Component,Prop } from 'vue-property-decorator'
 import { Input,InputNumber,DatePicker,Radio, Select,Switch,Slider,Checkbox,Rate } from 'ant-design-vue'
 import { FormItemObj } from '@/interface'
 
+// return出去作为组件不能使用，只能直接使用组件，所以该文件废弃
 @Component({
     components:{
         'a-input': Input,
@@ -26,60 +27,60 @@ class GetFormItem extends Vue{
 
     render(){
         if(this.item.type==='text'||this.item.type==='password'){
-            return <a-input placeholder={this.item.placeholder||''} type={this.item.type} disabled={this.item.disabled} defaultValue={this.item.value} />
+            return <a-input placeholder={this.item.placeholder||''} type={this.item.type} disabled={this.item.disabled}   />
         }
         else if(this.item.type==='textarea'){
-            return <a-textarea placeholder={this.item.placeholder||''} autosize disabled={this.item.disabled} defaultValue={this.item.value} />
+            return <a-textarea placeholder={this.item.placeholder||''} autosize disabled={this.item.disabled}   />
         }
         else if(this.item.type==='number'){
-            return <a-input-number style="width:100%" placeholder={this.item.placeholder||'' } disabled={this.item.disabled} defaultValue={this.item.value}></a-input-number>
+            return <a-input-number style="width:100%" placeholder={this.item.placeholder||'' } disabled={this.item.disabled}  ></a-input-number>
         }
         else if(this.item.type==='select'){
             if(this.item.options&&this.item.options.length){
-              return (<a-select defaultValue={this.item.value} placeholder={this.item.placeholder||''} disabled={this.item.disabled}>
+              return (<a-select   placeholder={this.item.placeholder||''} disabled={this.item.disabled}>
                   {this.item.options.map(opt=>{
                     return <a-select-option  value={opt.value}>{opt.label}</a-select-option>
                   })}
-            </a-select>  )
+            </a-select>)
             }else{
                 console.error('select必须有options参数，且格式请保证正确')
             }
         }
         else if(this.item.type==='date'||this.item.type==='dateRange'||this.item.type==='month'||this.item.type==='week'){
             if(this.item.type==='date'){
-                return <a-date-picker style="width:100%" placeholder={this.item.placeholder||''} disabled={this.item.disabled} defaultValue={this.item.value} />
+                return <a-date-picker style="width:100%" placeholder={this.item.placeholder||''} disabled={this.item.disabled} />
             }else if(this.item.type==='dateRange'){
-                return <a-range-picker style="width:100%" placeholder={this.item.placeholder||''} disabled={this.item.disabled} defaultValue={this.item.value} />
+                return <a-range-picker style="width:100%" placeholder={this.item.placeholder||''} disabled={this.item.disabled} />
             }else if(this.item.type==='month'){
-                return <a-month-picker style="width:100%" placeholder={this.item.placeholder||''} disabled={this.item.disabled} defaultValue={this.item.value} />
+                return <a-month-picker style="width:100%" placeholder={this.item.placeholder||''} disabled={this.item.disabled} />
             }else if(this.item.type==='week'){
-                // return <a-week-picker style="width:100%" placeholder={this.item.placeholder||''} disabled={this.item.disabled} defaultValue={this.item.value} />
+                // return <a-week-picker style="width:100%" placeholder={this.item.placeholder||''} disabled={this.item.disabled}   />
             }
         }
         else if(this.item.type==='switch'){
-            return <a-switch defaultValue={this.item.value}/>
+            return <a-switch />
         }
         else if(this.item.type==='slider'){
             let min = (this.item.validate&&!isNaN(this.item.validate.min))?this.item.validate.min:0
             let max = (this.item.validate&&!isNaN(this.item.validate.max))?this.item.validate.max:100
-            return <a-slider min={min} max={max} disabled={this.item.disabled} defaultValue={this.item.value} />
+            return <a-slider min={min} max={max} disabled={this.item.disabled} />
         }
         else if(this.item.type==='radio'){
             if(this.item.options&&this.item.options.length){
-                return  <a-radio-group options={this.item.options} defaultValue={this.item.value} disabled={this.item.disabled} />
+                return <a-radio-group options={this.item.options}   disabled={this.item.disabled} />
             }else{
                 console.error('radio必须有options参数，且格式请保证正确')
             }
         }
         else if(this.item.type==='check'){
             if(this.item.options&&this.item.options.length){
-                return  <a-checkbox-group options={this.item.options} defaultValue={this.item.value} disabled={this.item.disabled} />
+                return <a-checkbox-group options={this.item.options}   disabled={this.item.disabled} />
             }else{
                 console.error('check必须有options参数，且格式请保证正确')
             }
         }
         else if(this.item.type==='rate'){
-            return <a-rate defaultValue={this.item.value} disabled={this.item.disabled} />
+            return <a-rate disabled={this.item.disabled} />
         }
     }
 }

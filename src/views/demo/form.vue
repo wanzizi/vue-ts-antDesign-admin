@@ -29,7 +29,7 @@ export default class FormDemo extends Vue {
       this.formRef = formRef
     }
     handleSubmit ():void{
-      this.formRef.Form.validateFields((err:any, values:any) => {
+      this.formRef.Form.validateFields((err:any, values:object) => {
         console.log(err, values)
         if (err) {
 

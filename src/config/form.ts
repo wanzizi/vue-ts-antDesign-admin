@@ -30,7 +30,7 @@ let form = {
         'required': true,
         'customs': [
           {
-            'pattern': '/^[\\w_-]{6,16}$/',
+            'pattern': /^[\w_-]{6,16}$/,
             'message': '密码长度为6~16个字符，只能由字母数字下划线组成',
             'trigger': 'blur'
           }
@@ -72,6 +72,12 @@ let form = {
       'label': 'date',
       'required': true
     },
+    {
+      'type': 'time',
+      'key': 'time',
+      'label': 'time',
+      'required': true
+    },
     // {
     //   'type': 'alert',
     //   'level': 'info',
@@ -95,7 +101,7 @@ let form = {
       'type': 'select',
       // 'name': 'type',
       'label': 'select',
-      'key': 'selecttest',
+      'key': 'select',
       'value': '1',
       'options': [
         {
