@@ -48,7 +48,7 @@ class AntFormTool extends Vue{
             return <a-input type={item.type} placeholder={item.placeholder||''} disabled={item.disabled}   />
         }
         else if(item.type==='textarea'){
-            return <a-textarea autosize placeholder={item.placeholder||''} disabled={item.disabled}   />
+            return <a-textarea autosize={item.specialOpt||{}} placeholder={item.placeholder||''} disabled={item.disabled}   />
         }
         else if(item.type==='number'){
             return <a-input-number style="width:100%" placeholder={item.placeholder||'' } disabled={item.disabled}  ></a-input-number>
@@ -123,7 +123,14 @@ class AntFormTool extends Vue{
             // TODO:visibleOn的处理方式,待优化
             // let visible = (item.visibleOn&&item.visibleOn.key)?
             let defaultValue = item.value
-            return (
+            return item.type==='label'?
+            (
+                <a-col
+                span={item.col&&item.col.span?item.col.span:MAX_COL} 
+                offset={item.col&&item.col.offset?item.col.offset:''}
+                >{item.label}</a-col>
+            ) :
+            (
                 <a-col 
                     span={item.col&&item.col.span?item.col.span:MAX_COL} 
                     offset={item.col&&item.col.offset?item.col.offset:''}

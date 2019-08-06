@@ -30,6 +30,11 @@ export interface FormCol{
     label:number;
     wrapper:number;
 }
+// 特殊配置集合
+export interface specialOpj{
+    [propName:string]:any
+}
+// 校验集合
 export interface ValidateItemObj{
     regex:string;
     msg:string;
@@ -41,6 +46,7 @@ export interface ValidateObj{
     min:number;
     max:number;
 }
+// 列表项集合
 export interface OptionObj{
     label:string;
     value:string|number;
@@ -51,6 +57,7 @@ export interface FormItemObj{
     value:string|number;
     key:string;
     placeholder:string;
+    specialOpt:specialOpj;
     disabled?:boolean;
     validate?:ValidateObj;
     col?:FormCol;

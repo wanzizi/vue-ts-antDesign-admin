@@ -1,4 +1,3 @@
-
 let form = {
   type: 'form',
   mode: 'horizontal',
