@@ -24,8 +24,10 @@ let form = {
       label: '目标描述',
       key: 'target',
       specialOpt: {
-        minRows: 4,
-        maxRows: 6
+        autosize: {
+          minRows: 4,
+          maxRows: 6
+        }
       },
       placeholder: '请输入你的阶段性工作目标',
       validate: {
@@ -37,8 +39,10 @@ let form = {
       label: '衡量标准',
       key: 'standard',
       specialOpt: {
-        minRows: 4,
-        maxRows: 6
+        autosize: {
+          minRows: 4,
+          maxRows: 6
+        }
       },
       placeholder: '请输入你的阶段性工作目标',
       validate: {
@@ -61,15 +65,10 @@ let form = {
       type: 'number',
       label: '权重',
       key: 'weight',
+      width: '80%',
+      suffix: '%',
       col: {
         wrapper: 4
-      }
-    },
-    {
-      type: 'label',
-      label: '%',
-      col: {
-        span: 1
       }
     },
     {

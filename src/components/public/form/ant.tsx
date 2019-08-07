@@ -18,6 +18,7 @@ const DEFAULT_WRAPPER:number=12
         'a-form': Form,
         'a-form-item': Form.Item,
         'a-input': Input,
+        'a-input-group': Input.Group,
         'a-textarea': Input.TextArea,
         'a-input-number':InputNumber,
         'a-select':Select,
@@ -39,23 +40,25 @@ class AntFormTool extends Vue{
     @Prop() private Form!:any
     @Prop() private configs!:FormItemObj[]
 
-    mounted(){
-        // console.log(this.configs)
-    }
     // 还需要按照实际情况增加相应配置
     getChosenFormItem(item:FormItemObj){
         if(item.type==='text'||item.type==='password'){
-            return <a-input type={item.type} placeholder={item.placeholder||''} disabled={item.disabled}   />
+            return <a-input 
+                prefix={(item.specialOpt&&item.specialOpt.prefix)?item.specialOpt.prefix:''}
+                style={{width:item.width||'100%'}} 
+                type={item.type} 
+                placeholder={item.placeholder||''} 
+                disabled={item.disabled} />
         }
         else if(item.type==='textarea'){
-            return <a-textarea autosize={item.specialOpt||{}} placeholder={item.placeholder||''} disabled={item.disabled}   />
+            return <a-textarea style={{width:item.width||'100%'}} autosize={item.specialOpt.autosize} placeholder={item.placeholder||''} disabled={item.disabled} />
         }
         else if(item.type==='number'){
-            return <a-input-number style="width:100%" placeholder={item.placeholder||'' } disabled={item.disabled}  ></a-input-number>
+            return <a-input-number style={{width:item.width||'100%'}} placeholder={item.placeholder||'' } disabled={item.disabled}  ></a-input-number>
         }
         else if(item.type==='select'){
             if(item.options&&item.options.length){
-              return (<a-select placeholder={item.placeholder||''} disabled={item.disabled}>
+              return (<a-select style={{width:item.width||'100%'}} placeholder={item.placeholder||''} disabled={item.disabled}>
                   {item.options.map(opt=>{
                     return <a-select-option value={opt.value}>{opt.label}</a-select-option>
                   })}
@@ -66,17 +69,17 @@ class AntFormTool extends Vue{
         }
         else if(item.type==='date'||item.type==='dateRange'||item.type==='month'||item.type==='week'){
             if(item.type==='date'){
-                return <a-date-picker style="width:100%" placeholder={item.placeholder||''} disabled={item.disabled} />
+                return <a-date-picker style={{width:item.width||'100%'}} placeholder={item.placeholder||''} disabled={item.disabled} />
             }else if(item.type==='dateRange'){
-                return <a-range-picker style="width:100%" placeholder={item.placeholder||''} disabled={item.disabled} />
+                return <a-range-picker style={{width:item.width||'100%'}} placeholder={item.placeholder||''} disabled={item.disabled} />
             }else if(item.type==='month'){
-                return <a-month-picker style="width:100%" placeholder={item.placeholder||''} disabled={item.disabled} />
+                return <a-month-picker style={{width:item.width||'100%'}} placeholder={item.placeholder||''} disabled={item.disabled} />
             }else if(item.type==='week'){
-                // return <a-week-picker style="width:100%" placeholder={item.placeholder||''} disabled={item.disabled}   />
+                // return <a-week-picker style={{width:item.width||'100%'}} placeholder={item.placeholder||''} disabled={item.disabled}   />
             }
         }
         else if(item.type==='time'){
-            return <a-time-picker style="width:100%" placeholder={item.placeholder||''} disabled={item.disabled} />
+            return <a-time-picker style={{width:item.width||'100%'}} placeholder={item.placeholder||''} disabled={item.disabled} />
         }
         else if(item.type==='switch'){
             return <a-switch defaultChecked={item.value} disabled={item.disabled} />
@@ -122,7 +125,6 @@ class AntFormTool extends Vue{
 
             // TODO:visibleOn的处理方式,待优化
             // let visible = (item.visibleOn&&item.visibleOn.key)?
-            let defaultValue = item.value
             return item.type==='label'?
             (
                 <a-col
@@ -130,21 +132,38 @@ class AntFormTool extends Vue{
                 offset={item.col&&item.col.offset?item.col.offset:''}
                 >{item.label}</a-col>
             ) :
-            (
+            (   
                 <a-col 
                     span={item.col&&item.col.span?item.col.span:MAX_COL} 
                     offset={item.col&&item.col.offset?item.col.offset:''}
                     >
                     <a-form-item label={item.label} labelCol={labelCol} wrapperCol={wrapperCol}>
                         {
+                            item.type==='group'?<a-input-group compact>
+                                {
+                                    item.controls.map(tt=>{
+                                        let innerValidate = tt.validate&&tt.validate.customs&&tt.validate.customs.length?tt.validate.customs:[]
+                                        return getFieldDecorator(tt.key,{
+                                            rules:[
+                                                { required: (tt.validate&&tt.validate.required)||false, message: '必填项不能为空!'},
+                                                ...innerValidate
+                                            ],
+                                            initialValue:tt.value
+                                        })(this.getChosenFormItem(tt))
+                                    })
+                                }
+                            </a-input-group>:
                             getFieldDecorator(item.key,{
                                 rules:[
                                     { required: (item.validate&&item.validate.required)||false, message: '必填项不能为空!'},
                                     ...otherValidate
                                 ],
-                                initialValue:defaultValue
+                                initialValue:item.value
                             })(this.getChosenFormItem(item))
-                        }                       
+                        }   
+                        {
+                            (item.suffix&&item.suffix!==null&&item.suffix!==undefined)?<span>&nbsp;{item.suffix}</span>:''
+                        }
                     </a-form-item>
                 </a-col>
             )

@@ -53,10 +53,13 @@ export interface OptionObj{
 }
 export interface FormItemObj{
     type:string;
-    label:string;
+    label?:string;
+    controls:FormItemObj[];
     value:string|number;
     key:string;
+    width?:string;
     placeholder:string;
+    suffix:string|number;
     specialOpt:specialOpj;
     disabled?:boolean;
     validate?:ValidateObj;

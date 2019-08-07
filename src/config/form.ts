@@ -1,3 +1,5 @@
+// 完整form表单示例
+
 let form = {
   type: 'form',
   mode: 'horizontal',

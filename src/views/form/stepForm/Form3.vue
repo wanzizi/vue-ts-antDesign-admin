@@ -14,7 +14,7 @@
                     <template v-if="key==='number'">
                     <span class="number">
                         {{forms[key]}}
-                        <span class="subfix">元</span>
+                        <span class="suffix">元</span>
                     </span>
                     </template>
                     <template v-else>
@@ -26,7 +26,6 @@
         <p class="btn-box">
             <a-button
               type="primary"
-              :loading="loading"
               @click="gotoFirst"
             >再转一笔</a-button>
             <a-button

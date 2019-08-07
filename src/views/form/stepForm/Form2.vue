@@ -13,7 +13,7 @@
             <template v-if="key==='number'">
               <span class="number">
                 {{forms[key]}}
-                <span class="subfix">元</span>
+                <span class="suffix">元</span>
               </span>
             </template>
             <template v-else>
@@ -23,7 +23,7 @@
       </a-row>
       <a-row class="password-box border">
         <a-col :xs="24" :sm="5" class="label password">支付密码:</a-col>
-        <a-col :xs="24" :sm="12" :key="key">
+        <a-col :xs="24" :sm="12">
             <a-input v-model="password" type="password" placeholder="请输入支付密码"/>
         </a-col>
       </a-row>
@@ -50,11 +50,11 @@ import { Row, Col, Alert, Input, Button } from 'ant-design-vue'
 import { colObj } from '@/interface'
 
 interface formObj{
-    getAccount:string;
-    payAccountType: string;
-    getAccountAddr:string;
-    getName:string;
-    number:number;
+    account:string;
+    accountType: string;
+    accountAddr:string;
+    receiveName:string;
+    receiveAmount:number;
 }
 
 @Component({
@@ -73,10 +73,10 @@ export default class Form2 extends Vue {
     @Prop() private prevFunc!:Function
 
     formLabels={
-      payAccount: '付款账户',
-      getAccountAddr: '收款账户',
-      getName: '收款人姓名',
-      number: '转账金额'
+      account: '付款账户',
+      accountAddr: '收款账户',
+      receiveName: '收款人姓名',
+      receiveAmount: '转账金额'
     }
     password:string='123456'
     loading:boolean=false
@@ -87,7 +87,7 @@ export default class Form2 extends Vue {
         this.loading = false
 
         this.nextFunc()
-      }, 500)
+      }, 1000)
     }
 }
 </script>
@@ -118,7 +118,7 @@ export default class Form2 extends Vue {
       // color: rgba(0,0,0,.85);
       font-size: 24px;
       line-height: 1;
-      .subfix{
+      .suffix{
         margin-left: 4px;
         font-size: 16px;
       }

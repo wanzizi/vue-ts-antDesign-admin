@@ -5,42 +5,53 @@
         </a-steps>
 
         <div class="step-content">
-            <form-1 v-show="current===0" v-on:on-form-success="handleFormSuccess"></form-1>
+            <div v-show="current===0">
+              <AntFormTool :configs="step1.controls" :wrappedComponentRef="saveFormRef1"></AntFormTool>
+              <Row>
+                <a-col offset="5">
+                  <Button type="primary" @click="handleFormSuccess">下一步</Button>
+                </a-col>
+              </Row>
+            </div>
             <form-2 v-if="current===1" :forms="forms" :nextFunc="nextFunc" :prevFunc="prevFunc"></form-2>
             <form-3 v-if="current===2" :forms="forms" v-on:goto-first="gotoFisrt"></form-3>
-            <!-- <div v-on:on-form-success="handleFormSuccess" :is="`form-${current+1}`" :nextFunc="nextFunc" :prevFunc="prevFunc"></div> -->
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Steps } from 'ant-design-vue'
-import Form1 from './stepForm/Form1'
+import { Row, Col, Steps, Button } from 'ant-design-vue'
 import Form2 from './stepForm/Form2.vue'
 import Form3 from './stepForm/Form3.vue'
+import AntFormTool from '@/components/public/form/ant'
+import step1 from '@/config/forms/step1'
 
 interface stepObj{
     title:string
 }
 interface formObj{
-    getAccount:string;
-    payAccountType: string;
-    getAccountAddr:string;
-    getName:string;
-    number:number;
+    account:string;
+    accountType: string;
+    accountAddr:string;
+    receiveName:string;
+    receiveAmount:number;
 }
 
 @Component({
   components: {
     'a-steps': Steps,
     'a-step': Steps.Step,
-    'form-1': Form1,
+    Button,
+    Row,
+    'a-col': Col,
     'form-2': Form2,
-    'form-3': Form3
+    'form-3': Form3,
+    AntFormTool
   }
 })
 export default class FormStep extends Vue {
+    step1=step1
     current:number=0
     steps:stepObj[]=[
       {
@@ -54,11 +65,20 @@ export default class FormStep extends Vue {
       }
     ]
     forms:formObj|undefined=undefined
+    formRef1:any
 
-    handleFormSuccess (form:formObj) {
-      console.log(form)
-      this.forms = { ...form }
-      this.nextFunc()
+    saveFormRef1 (formRef:any) {
+      this.formRef1 = formRef
+    }
+    handleFormSuccess () {
+      this.formRef1.Form.validateFields((err:any, values:formObj) => {
+        if (err) {
+
+        } else {
+          this.forms = values
+          this.nextFunc()
+        }
+      })
     }
 
     nextFunc ():void {

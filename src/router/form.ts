@@ -25,6 +25,15 @@ export default {
       },
       component: () => import('@/views/form/FormStep.vue')
       // (resolve: any) => require(['@/views/form/FormBase'], resolve)
+    },
+    {
+      path: 'form-senior',
+      name: 'form-senior',
+      meta: {
+        chineseName: '高级表单',
+        desc: '高级表单常见于一次性输入和提交大批量数据的场景。'
+      },
+      component: () => import('@/views/form/FormSenior.vue')
     }
   ]
 }

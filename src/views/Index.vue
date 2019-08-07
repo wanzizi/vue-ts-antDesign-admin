@@ -59,7 +59,9 @@ export default class Index extends Vue {
   background: #f0f2f5;
   .manage-main{
     width: 100%;
+    height: 100%;
     .manage-content{
+      height: calc(~'100% - 64px');
       .common-part{
           padding: 16px 24px;
           background: #fff;
