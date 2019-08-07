@@ -45,6 +45,7 @@ class AntFormTool extends Vue{
         if(item.type==='text'||item.type==='password'){
             return <a-input 
                 prefix={(item.specialOpt&&item.specialOpt.prefix)?item.specialOpt.prefix:''}
+                suffix={(item.specialOpt&&item.specialOpt.suffix)?item.specialOpt.suffix:''}
                 style={{width:item.width||'100%'}} 
                 type={item.type} 
                 placeholder={item.placeholder||''} 

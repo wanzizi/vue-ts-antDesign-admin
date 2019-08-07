@@ -40,11 +40,6 @@ function adapter (option) {
             ]
           }
         ]
-      },
-      {
-        path: '/formDemo',
-        name: 'formDemo',
-        component: () => import(/* webpackChunkName: "about" */ '@/views/demo/formAnt.vue')
       }
     ]
   })

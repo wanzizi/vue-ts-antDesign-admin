@@ -45,3 +45,11 @@ export default class FormBase extends Vue {
     }
 }
 </script>
+
+<style lang="less" scoped>
+.form-demo{
+  height: 100%;
+  background: #fff;
+  padding: 24px;
+}
+</style>

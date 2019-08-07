@@ -95,6 +95,9 @@ export default class FormStep extends Vue {
 
 <style lang="less" scoped>
 .form-step{
+    height: 100%;
+    background: #fff;
+    padding: 24px;
     .step{
         max-width: 750px;
         margin: 16px auto;
