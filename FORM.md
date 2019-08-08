@@ -67,6 +67,7 @@ formJson={
 ```
 
 #### 组件支持表单内容类型(type:'xxx')：
+* group (当类型为group时，循环controls配置，内部组合格式都与普通表单项一致)
 * text
 * password
 * textarea
