@@ -25,10 +25,10 @@ export interface noneFunc{
 
 // 表单校验相关接口
 export interface FormCol{
-    span:number;
-    offset:number;
-    label:number;
-    wrapper:number;
+    span?:number;
+    offset?:number;
+    label?:number;
+    wrapper?:number;
 }
 // 特殊配置集合
 export interface specialOpj{
@@ -36,16 +36,16 @@ export interface specialOpj{
 }
 // 校验集合
 export interface ValidateItemObj{
-    regex:string;
-    msg:string;
-    trigger:string;
+    pattern:string;
+    message:string;
+    trigger?:string;
 }
 export interface ValidateObj{
-    required:boolean;
-    type:string;
-    customs:ValidateItemObj[];
-    min:number;
-    max:number;
+    required?:boolean;
+    type?:string;
+    customs?:ValidateItemObj[];
+    min?:number;
+    max?:number;
 }
 // 列表项集合
 export interface OptionObj{
@@ -54,16 +54,16 @@ export interface OptionObj{
 }
 export interface FormItemObj{
     type:string;
-    label?:string;
-    controls:FormItemObj[];
-    value:string|number;
+    label:string;
+    value:string|number|Array<number>|Array<string>|boolean;
     key:string;
     width?:string;
-    placeholder:string;
-    suffix:string|number;
-    specialOpt:specialOpj;
+    placeholder?:string;
+    suffix?:string|number;
+    specialOpt?:specialOpj;
     disabled?:boolean;
     validate?:ValidateObj;
     col?:FormCol;
-    options?:OptionObj[]
+    options?:OptionObj[];
+    controls?:FormItemObj[];
 }

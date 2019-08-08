@@ -87,16 +87,16 @@ module.exports = {
     https: false,
     hotOnly: false,
     // 查阅 https://github.com/vuejs/vue-doc-zh-cn/vue-cli/cli-service.md#配置代理
-    // proxy: {
-    // '/api/datav': {
-    //   // target: 'http://192.168.0.6:80/',
-    //   target: 'http://bi.lishicloud.com/',
-    //   changeOrigin: true,
-    //   pathRewrite: {
-    //     '^/': ''
-    //   }
-    // }
-    // }, // string | Object
+    proxy: {
+      '/api': {
+      // target: 'http://192.168.0.6:80/',
+        target: 'http://116.62.142.240:10011',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }, // string | Object
     before: app => {
       // `app` 是一个 express 实例
     }

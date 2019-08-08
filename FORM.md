@@ -15,7 +15,7 @@ formJson={
            type:'xxx', //***必填字段，表单项类型，具体列表由下面列表列出
            label:'', //***必填字段，中文名，表单名称，如姓名，密码等
            key:'', //***必填字段，后台对应的字段名
-           value:'', //表单值，如填写会作为默认值，不一定是字符串，也有可能格式有可能是数组或其他类型
+           value:'', //***必填字段，表单值，如填写会作为默认值，不一定是字符串，也有可能格式有可能是数组或其他类型
            placeholder:'',
            disabled:true/false,
            width:'30%', //表单项（input框，select框这种）宽度，默认100%占满
@@ -26,9 +26,16 @@ formJson={
                     minRows: 4,
                     maxRows: 6
                 },
-                //input的前后缀格式示例
-                prefix: '￥',
-                suffix: '元'
+                //input的前后缀格式示例，input的前后缀会在input框里，外部的suffix后缀会在表单项的框外部
+                //inner适合只有一两次字符的短标识或者icon，透明背景，block适合长一些的前后缀，有灰色的背景
+                inner:{
+                    prefix: '￥',
+                    suffix: '元'
+                },
+                block:{
+                    prefix: 'http://',
+                    suffix: '.com'
+                }
            },
            validate:{ //表单校验
                 required:true, //true为必填，不必填可以不写

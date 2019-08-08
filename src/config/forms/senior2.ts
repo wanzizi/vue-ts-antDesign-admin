@@ -3,8 +3,8 @@ let form = {
   controls: [
     {
       type: 'text',
-      label: '仓库名',
-      key: 'warehouseName',
+      label: '任务名',
+      key: 'name',
       value: '',
       col: {
         span: 7,
@@ -14,15 +14,9 @@ let form = {
     },
     {
       type: 'text',
-      label: '仓库域名',
-      key: 'warehouseWeb',
+      label: '任务描述',
+      key: 'describ',
       value: '',
-      specialOpt: {
-        block: {
-          prefix: 'http://',
-          suffix: '.com'
-        }
-      },
       col: {
         span: 7,
         label: 7,
@@ -31,8 +25,8 @@ let form = {
     },
     {
       type: 'select',
-      label: '仓库管理员',
-      key: 'admin',
+      label: '执行人',
+      key: 'person',
       value: '',
       col: {
         span: 10,

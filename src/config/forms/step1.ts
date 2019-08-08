@@ -85,7 +85,9 @@ let form = {
         ]
       },
       specialOpt: {
-        prefix: '￥'
+        inner: {
+          prefix: '￥'
+        }
       }
     }
   ]

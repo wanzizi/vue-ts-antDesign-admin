@@ -44,15 +44,17 @@ class AntFormTool extends Vue{
     getChosenFormItem(item:FormItemObj){
         if(item.type==='text'||item.type==='password'){
             return <a-input 
-                prefix={(item.specialOpt&&item.specialOpt.prefix)?item.specialOpt.prefix:''}
-                suffix={(item.specialOpt&&item.specialOpt.suffix)?item.specialOpt.suffix:''}
+                prefix={(item.specialOpt&&item.specialOpt.inner&&item.specialOpt.inner.prefix)?item.specialOpt.inner.prefix:''}
+                suffix={(item.specialOpt&&item.specialOpt.inner&&item.specialOpt.inner.suffix)?item.specialOpt.item.suffix:''}
+                addonBefore={(item.specialOpt&&item.specialOpt.block&&item.specialOpt.block.prefix)?item.specialOpt.block.prefix:''}
+                addonAfter={(item.specialOpt&&item.specialOpt.block&&item.specialOpt.block.suffix)?item.specialOpt.block.suffix:''}
                 style={{width:item.width||'100%'}} 
                 type={item.type} 
                 placeholder={item.placeholder||''} 
                 disabled={item.disabled} />
         }
         else if(item.type==='textarea'){
-            return <a-textarea style={{width:item.width||'100%'}} autosize={item.specialOpt.autosize} placeholder={item.placeholder||''} disabled={item.disabled} />
+            return <a-textarea style={{width:item.width||'100%'}} autosize={item.specialOpt&&item.specialOpt.autosize?item.specialOpt.autosize:''} placeholder={item.placeholder||''} disabled={item.disabled} />
         }
         else if(item.type==='number'){
             return <a-input-number style={{width:item.width||'100%'}} placeholder={item.placeholder||'' } disabled={item.disabled}  ></a-input-number>
@@ -86,8 +88,8 @@ class AntFormTool extends Vue{
             return <a-switch defaultChecked={item.value} disabled={item.disabled} />
         }
         else if(item.type==='slider'){
-            let min = (item.validate&&!isNaN(item.validate.min))?item.validate.min:0
-            let max = (item.validate&&!isNaN(item.validate.max))?item.validate.max:100
+            let min = (item.validate&&item.validate.min!==undefined&&!isNaN(item.validate.min))?item.validate.min:0
+            let max = (item.validate&&item.validate.max!==undefined&&!isNaN(item.validate.max))?item.validate.max:100
             return <a-slider min={min} max={max} disabled={item.disabled} />
         }
         else if(item.type==='radio'){
@@ -142,7 +144,7 @@ class AntFormTool extends Vue{
                         {
                             item.type==='group'?<a-input-group compact>
                                 {
-                                    item.controls.map(tt=>{
+                                    item.controls&&item.controls.length ? item.controls.map(tt=>{
                                         let innerValidate = tt.validate&&tt.validate.customs&&tt.validate.customs.length?tt.validate.customs:[]
                                         return getFieldDecorator(tt.key,{
                                             rules:[
@@ -151,13 +153,18 @@ class AntFormTool extends Vue{
                                             ],
                                             initialValue:tt.value
                                         })(this.getChosenFormItem(tt))
-                                    })
+                                    }) : ''
                                 }
                             </a-input-group>:
                             getFieldDecorator(item.key,{
                                 rules:[
-                                    { type:(item.validate&&item.validate.type)?item.validate.type:'string',required: item.validate&&item.validate.required, message: '必填项不能为空!'},
-                                    {min:(item.validate&&!isNaN(item.validate.min))?item.validate.min:undefined,max:(item.validate&&!isNaN(item.validate.max))?item.validate.max:undefined},
+                                    { 
+                                        type:(item.validate&&item.validate.type)?item.validate.type:'string',required: item.validate&&item.validate.required, message: '必填项不能为空!'
+                                    },
+                                    {
+                                        min:(item.validate&&item.validate.min!==undefined&&!isNaN(item.validate.min))?item.validate.min:undefined,
+                                        max:(item.validate&&item.validate.max!==undefined&&!isNaN(item.validate.max))?item.validate.max:undefined
+                                    },
                                     ...otherValidate
                                 ],
                                 initialValue:item.value
