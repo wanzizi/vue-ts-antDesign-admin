@@ -107,7 +107,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Row, Col, Form, Select, Input, InputNumber, DatePicker, Table, Button, Icon, Alert, Card, Dropdown, Menu } from 'ant-design-vue'
 import { colObj, paginationObj } from '@/interface'
 
@@ -152,76 +152,9 @@ for (let i = 0; i < 46; i++) {
     'a-icon': Icon
   }
 })
-//   let form = {}
-
 export default class ListTable extends Vue {
-  // 动态list的参数
-// type:any= 'list' // 最基础的list
-//   data:any= {
-//     api: 'www.baidu.com',
-//     schema: 'data.data'
-//   }
-//   page :any= {}
-//   table:any= {
-//     columns1: [{
-//       dataIndex: 'name',
-//       weight: '2', // 占几个字符串
-//       key: 'name',
-//       slots: { title: 'customTitle' },
-//       scopedSlots: { customRender: 'name' }
-//     }, {
-//       title: 'Age',
-//       dataIndex: 'age',
-//       key: 'age'
-//     }, {
-//       title: 'Address',
-//       dataIndex: 'address',
-//       key: 'address'
-//     }, {
-//       title: 'Tags',
-//       key: 'tags',
-//       dataIndex: 'tags',
-//       scopedSlots: { customRender: 'tags' } // 这里应该支持常规的几种。状态显示，开关
-//     }, {
-//       title: 'Action',
-//       key: 'action',
-//       scopedSlots: { customRender: 'action' }
-//     }],
-//     action: {
-//       edit: {
-//         api: 'www.baidu.com',
-//         form: form
-//       },
-//       delete: {
-
-  //       },
-  //       info: {
-
-  //       },
-  //       other: [{
-  //         type: 'dialog',
-  //         title: '自定义'
-  //       }]
-  //     }
-  //   }
-  //   search:any= [{
-  //     key: 'tags',
-  //     title: 'tags',
-  //     type: 'input'
-  //   }]
-  //   button:any= {
-  //     add: {
-  //       api: 'www.baidu.com',
-  //       form: form
-  //     },
-  //     export: {
-
-  //     },
-  //     alldelete: {
-
-  //     }
-  //   }
-
+    @Prop() private columns!:any
+      @Prop() private data1!:any
     labelCol: colObj={
       xs: { span: 8 },
       sm: { span: 5 }
@@ -244,37 +177,38 @@ export default class ListTable extends Vue {
     callTotal:Number=0
 
     selectedRowKeys:Array<Number|String>=[]
-    data1:Array<any>=list
-    columns:any = [
-      {
-        title: '规则编号',
-        dataIndex: 'no'
-      },
-      {
-        title: '描述',
-        dataIndex: 'description'
-      },
-      {
-        title: '服务调用次数',
-        dataIndex: 'callNo',
-        sorter: (a:any, b:any) => a.callNo - b.callNo,
-        customRender: (num:number) => num + ' 次'
-      },
-      {
-        title: '状态',
-        dataIndex: 'status',
-        needTotal: true
-      },
-      {
-        title: '更新时间',
-        dataIndex: 'updatedAt'
-      },
-      {
-        title: '操作',
-        dataIndex: 'operation',
-        scopedSlots: { customRender: 'operation' }
-      }
-    ]
+    // data1:Array<any>=list
+    // columns:any = [
+    //   {
+    //     title: '规则编号',
+    //     dataIndex: 'no'
+    //   },
+    //   {
+    //     title: '描述',
+    //     dataIndex: 'description'
+    //   },
+    //   {
+    //     title: '服务调用次数',
+    //     dataIndex: 'callNo',
+    //     sorter: (a:any, b:any) => a.callNo - b.callNo,
+    //     customRender: (num:number) => num + ' 次'
+    //   },
+    //   {
+    //     title: '状态',
+    //     dataIndex: 'status',
+    //     needTotal: true
+    //   },
+    //   {
+    //     title: '更新时间',
+    //     dataIndex: 'updatedAt'
+    //   },
+    //   {
+    //     title: '操作',
+    //     dataIndex: 'operation',
+    //     scopedSlots: { customRender: 'operation' }
+    //   }
+    // ]
+
     beforeCreate () {
       this.form = this.$form.createForm(this)
     }
@@ -290,9 +224,6 @@ export default class ListTable extends Vue {
     }
     handleReset () {
       this.form.resetFields()
-    }
-    mounted () {
-      console.log(this.$$options)// 为后续异步渲染表单做准备，这边要从this.$$options先吧当前路由对应的值取出来，然后再渲染对应的组件
     }
 }
 </script>

@@ -1,6 +1,8 @@
 <template>
-    <a-card class="list-table" :bordered="false">
-        <a-form :form="form" layout="horizontal">
+  <div class="form-step">
+    <!-- modals 对应的业务弹框 -->
+    <l-page>
+        <template  v-slot:section><a-form :form="form" layout="horizontal">
             <a-row >
                 <a-col :md="8" :sm="24" >
                     <a-form-item
@@ -76,39 +78,26 @@
                 </a-col>
             </a-row>
         </a-form>
-        <section class="button-operator">
-            <a-button type="primary" icon="plus">新建</a-button>
-            <a-button v-show="selectedRowKeys.length">批量操作</a-button>
-            <a-dropdown v-show="selectedRowKeys.length">
-                <a-menu slot="overlay">
-                    <a-menu-item key="1">删除</a-menu-item>
-                    <a-menu-item key="2">批量审批</a-menu-item>
-                </a-menu>
-                <a-button>
-                    更多操作 <a-icon type="down" />
-                </a-button>
-            </a-dropdown>
-        </section>
-        <a-alert class="table-alert" type="info" showIcon >
-            <span slot="message">
-                已选择 <a style="font-weight: 600;">{{selectedRowKeys.length}}</a> 项 &nbsp;&nbsp;
-                <span style="margin-right:24px;">服务调用次数总计 {{callTotal}} <b>万</b></span>
-                <a @click="clearSelectData">清空</a>
-            </span>
-        </a-alert>
-        <a-table
+        </template>
+        <template  v-slot:buttons><section class="button-operator">
+            <a-button type="primary" icon="plus">新建1</a-button>
+
+        </section></template>
+        <template  v-slot:table> <a-table
             :pagination="pagination"
             :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
             :columns="columns"
             :dataSource="data1">
             <a slot="operation" href="javascript:;">配置</a>
-        </a-table>
-    </a-card>
+        </a-table></template>
+    </l-page>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Row, Col, Form, Select, Input, InputNumber, DatePicker, Table, Button, Icon, Alert, Card, Dropdown, Menu } from 'ant-design-vue'
+import table from './ListTableBase.vue'
 import { colObj, paginationObj } from '@/interface'
 
 interface formObj{
@@ -131,8 +120,17 @@ for (let i = 0; i < 46; i++) {
   })
 }
 
+interface formObj {
+  getAccount: string;
+  payAccountType: string;
+  getAccountAddr: string;
+  getName: string;
+  number: number;
+}
+
 @Component({
   components: {
+    'l-page': table,
     'a-card': Card,
     'a-row': Row,
     'a-col': Col,
@@ -152,11 +150,12 @@ for (let i = 0; i < 46; i++) {
     'a-icon': Icon
   }
 })
-export default class ListTable extends Vue {
-    labelCol: colObj={
-      xs: { span: 8 },
-      sm: { span: 5 }
-    }
+export default class FormStep extends Vue {
+  api: any = 'www.baidu';
+ labelCol: colObj={
+   xs: { span: 8 },
+   sm: { span: 5 }
+ }
     wrapperCol:colObj= {
       xs: { span: 10 },
       sm: { span: 18 }
@@ -225,7 +224,17 @@ export default class ListTable extends Vue {
 }
 </script>
 
-<style scoped lang="less">
+<style lang="less" scoped>
+.form-step {
+  .step {
+    max-width: 750px;
+    margin: 16px auto;
+  }
+  .step-content {
+    max-width: 500px;
+    margin: 40px auto 0;
+  }
+}
 .list-table{
     background: #fff;
     margin: 24px 24px 0;
