@@ -94,7 +94,7 @@ template
 configs：表单的数组配置
 wrappedComponentRef：相当于ref
 ```
-<AntFormTool name="test" :configs="form.controls" :wrappedComponentRef="saveFormRef"></AntFormTool>
+<AntFormTool name="test" :configs="formJson.controls" :wrappedComponentRef="saveFormRef"></AntFormTool>
 ```
 
 methods
@@ -109,7 +109,7 @@ methods submit
 ```
 handleSubmit ():void{
     this.formRef.Form.validateFields((err:any, values:object) => {
-        // values即为表单对象值
+        // values即为提交表单时的表单对象值
         console.log(err, values)
         if (err) {
 
