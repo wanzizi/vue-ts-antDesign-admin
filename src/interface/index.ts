@@ -42,6 +42,7 @@ export interface ValidateItemObj{
 }
 export interface ValidateObj{
     required:boolean;
+    type:string;
     customs:ValidateItemObj[];
     min:number;
     max:number;

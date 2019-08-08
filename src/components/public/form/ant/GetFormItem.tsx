@@ -3,6 +3,7 @@ import { Input,InputNumber,DatePicker,Radio, Select,Switch,Slider,Checkbox,Rate 
 import { FormItemObj } from '@/interface'
 
 // return出去作为组件不能使用，只能直接使用组件，所以该文件废弃
+// 仅作为jsx组件参考，如无需再使用，可删除
 @Component({
     components:{
         'a-input': Input,

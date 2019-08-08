@@ -146,7 +146,7 @@ class AntFormTool extends Vue{
                                         let innerValidate = tt.validate&&tt.validate.customs&&tt.validate.customs.length?tt.validate.customs:[]
                                         return getFieldDecorator(tt.key,{
                                             rules:[
-                                                { required: (tt.validate&&tt.validate.required)||false, message: '必填项不能为空!'},
+                                                { required: tt.validate&&tt.validate.required, message: '必填项不能为空!'},
                                                 ...innerValidate
                                             ],
                                             initialValue:tt.value
@@ -156,7 +156,8 @@ class AntFormTool extends Vue{
                             </a-input-group>:
                             getFieldDecorator(item.key,{
                                 rules:[
-                                    { required: (item.validate&&item.validate.required)||false, message: '必填项不能为空!'},
+                                    { type:(item.validate&&item.validate.type)?item.validate.type:'string',required: item.validate&&item.validate.required, message: '必填项不能为空!'},
+                                    {min:(item.validate&&!isNaN(item.validate.min))?item.validate.min:undefined,max:(item.validate&&!isNaN(item.validate.max))?item.validate.max:undefined},
                                     ...otherValidate
                                 ],
                                 initialValue:item.value
