@@ -1,10 +1,10 @@
-### form组件文档
+## form组件文档
 
 组件存放路径：src/components/public/form/ant.tsx
 
 组件介绍：ant开发的json配置表单组件，父级传入json配置，由组件内部渲染出表单页面
 
-##### json配置格式
+#### json配置格式
 ```
 formJson={
     type:'form',
@@ -64,7 +64,7 @@ formJson={
 }
 ```
 
-##### 组件支持表单内容类型(type:'xxx')：
+#### 组件支持表单内容类型(type:'xxx')：
 * text
 * password
 * textarea
@@ -80,3 +80,42 @@ formJson={
 * radio
 * check
 * rate 星级类
+
+
+#### 使用方法
+
+###### 父级中使用组件的方法：
+```
+import AntFormTool from '@/components/public/form/ant'
+```
+
+template
+
+configs：表单的数组配置
+wrappedComponentRef：相当于ref
+```
+<AntFormTool name="test" :configs="form.controls" :wrappedComponentRef="saveFormRef"></AntFormTool>
+```
+
+methods
+获取到子级中的表单对象
+```
+saveFormRef (formRef:any) {
+    this.formRef = formRef
+}
+```
+
+methods submit
+```
+handleSubmit ():void{
+    this.formRef.Form.validateFields((err:any, values:object) => {
+        // values即为表单对象值
+        console.log(err, values)
+        if (err) {
+
+        } else {
+
+        }
+    })
+}
+```
