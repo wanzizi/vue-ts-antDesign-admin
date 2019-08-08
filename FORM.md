@@ -4,7 +4,7 @@
 
 组件介绍：ant开发的json配置表单组件，父级传入json配置，由组件内部渲染出表单页面
 
-#####json配置格式
+##### json配置格式
 ```
 formJson={
     type:'form',
@@ -64,7 +64,7 @@ formJson={
 }
 ```
 
-#####组件支持表单内容类型(type:'xxx')：
+##### 组件支持表单内容类型(type:'xxx')：
 * text
 * password
 * textarea
