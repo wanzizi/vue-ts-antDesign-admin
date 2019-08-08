@@ -2,6 +2,8 @@
 
 组件存放路径：src/components/public/form/ant.tsx
 
+组件使用示例：src/views/form
+
 组件介绍：ant开发的json配置表单组件，父级传入json配置，由组件内部渲染出表单页面
 
 #### json配置格式
