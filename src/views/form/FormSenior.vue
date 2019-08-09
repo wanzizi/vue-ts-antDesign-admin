@@ -2,11 +2,11 @@
     <div class="form-senior">
         <div class="form-content-box">
             <h3 class="title">仓库管理</h3>
-            <AntFormTool class="form-content" :configs="senior1.controls"></AntFormTool>
+            <AntFormTool class="form-content" :configs="senior1.controls" :wrappedComponentRef="saveRef1"></AntFormTool>
         </div>
         <div class="form-content-box">
             <h3 class="title">任务管理</h3>
-            <AntFormTool class="form-content" :configs="senior2.controls"></AntFormTool>
+            <AntFormTool class="form-content" :configs="senior2.controls" :wrappedComponentRef="saveRef2"></AntFormTool>
         </div>
         <div class="form-content-box">
             <h3 class="title">成员管理</h3>
@@ -34,6 +34,13 @@
                 <a-button class="table-add-btn" type="dashed" icon="plus" block @click="addMember">新增成员</a-button>
             </div>
         </div>
+
+        <p class="operate-bar">
+          <span v-show="isShowErr" class="error-tip">
+            <a-icon type="info-circle" />&nbsp;{{errorNumber}}
+          </span>
+          <a-button type="primary" @click="handleSubmit">提交</a-button>
+        </p>
     </div>
 </template>
 
@@ -43,7 +50,7 @@ import AntFormTool from '@/components/public/form/ant'
 import senior1 from '@/config/forms/senior1'
 import senior2 from '@/config/forms/senior2'
 import { FormItemObj } from '@/interface'
-import { Table, Divider, Button, Input } from 'ant-design-vue'
+import { Table, Divider, Button, Input, Icon } from 'ant-design-vue'
 
 interface IFormItem{
   type:string;
@@ -72,7 +79,8 @@ interface ISlotsItem{
     'a-table': Table,
     'a-divider': Divider,
     'a-button': Button,
-    'a-input': Input
+    'a-input': Input,
+    'a-icon': Icon
   }
 })
 export default class FormSenior extends Vue {
@@ -121,6 +129,18 @@ export default class FormSenior extends Vue {
       }
     ]
 
+    ref1:any
+    ref2:any
+
+    errorNumber:number=0
+    isShowErr:boolean=false
+
+    saveRef1 (formRef:any) {
+      this.ref1 = formRef
+    }
+    saveRef2 (formRef:any) {
+      this.ref2 = formRef
+    }
     addMember ():void{
       this.dataSource.push({
         key: this.dataSource.length + 1 + '',
@@ -135,6 +155,38 @@ export default class FormSenior extends Vue {
     }
     save (record:IDataItem, index:number):void{
       this.dataSource[index].editable = false
+    }
+    handleSubmit () {
+      let flag = true
+      let form1
+      let form2
+      let errorNumber = 0
+      this.ref1.Form.validateFields((err:any, values:object) => {
+        if (err) {
+          Object.keys(err).forEach(error => {
+            errorNumber += parseInt(err[error].errors.length) || 0
+          })
+          flag = false
+        } else {
+          form1 = values
+        }
+      })
+      this.ref2.Form.validateFields((err:any, values:object) => {
+        if (err) {
+          Object.keys(err).forEach(error => {
+            errorNumber += parseInt(err[error].errors.length) || 0
+          })
+          flag = false
+        } else {
+          form2 = values
+        }
+      })
+      if (flag) {
+        this.isShowErr = false
+      } else {
+        this.isShowErr = true
+        this.errorNumber = errorNumber
+      }
     }
 }
 </script>
@@ -162,6 +214,22 @@ export default class FormSenior extends Vue {
                 margin-top: 16px;
                 margin-bottom: 8px;
             }
+        }
+    }
+    .operate-bar{
+        position: fixed;
+        z-index: 10;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        text-align: right;
+        margin-bottom: 0;
+        padding: 12px 24px;
+        .error-tip{
+          color: red;
+          font-size: 14px;
+          margin-right: 24px;
         }
     }
 }

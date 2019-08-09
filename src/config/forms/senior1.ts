@@ -10,6 +10,9 @@ let form = {
         span: 7,
         label: 7,
         wrapper: 17
+      },
+      validate: {
+        required: true
       }
     },
     {
@@ -27,6 +30,9 @@ let form = {
         span: 7,
         label: 7,
         wrapper: 17
+      },
+      validate: {
+        required: true
       }
     },
     {
@@ -38,6 +44,9 @@ let form = {
         span: 10,
         label: 7,
         wrapper: 16
+      },
+      validate: {
+        required: true
       },
       options: [
         {
