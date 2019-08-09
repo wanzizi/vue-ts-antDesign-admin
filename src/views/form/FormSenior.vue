@@ -12,11 +12,24 @@
             <h3 class="title">成员管理</h3>
             <div class="table-content">
                 <a-table :dataSource="dataSource" :columns="columns" :pagination="false">
-                    <span slot="operation" slot-scope="text, record">
-                        <a @click="edit(record.key)">编辑</a>
+                    <span slot="operation" slot-scope="text, record, index">
+                        <a v-if="record.editable" @click="save(record,index)">保存</a>
+                        <a v-else @click="edit(record.key)">编辑</a>
                         <a-divider type="vertical" />
                         <a>删除</a>
                     </span>
+
+                    <template v-for="col in ['name', 'personNumber', 'department']" :slot="col" slot-scope="text, record, index">
+                      <div :key="col">
+                        <a-input
+                          v-if="record.editable"
+                          style="margin: -5px 0"
+                          :value="text"
+                          @change="e => handleChange(e.target.value, record.key, col,index)"
+                        />
+                        <template v-else>{{text}}</template>
+                      </div>
+                    </template>
                 </a-table>
                 <a-button class="table-add-btn" type="dashed" icon="plus" block @click="addMember">新增成员</a-button>
             </div>
@@ -30,7 +43,7 @@ import AntFormTool from '@/components/public/form/ant'
 import senior1 from '@/config/forms/senior1'
 import senior2 from '@/config/forms/senior2'
 import { FormItemObj } from '@/interface'
-import { Table, Divider, Button } from 'ant-design-vue'
+import { Table, Divider, Button, Input } from 'ant-design-vue'
 
 interface IFormItem{
   type:string;
@@ -42,6 +55,7 @@ interface IDataItem{
     name:string;
     personNumber:string;
     department:string;
+    editable?:boolean;
 }
 interface IColumnsItem{
     title:string;
@@ -57,7 +71,8 @@ interface ISlotsItem{
     AntFormTool,
     'a-table': Table,
     'a-divider': Divider,
-    'a-button': Button
+    'a-button': Button,
+    'a-input': Input
   }
 })
 export default class FormSenior extends Vue {
@@ -108,11 +123,18 @@ export default class FormSenior extends Vue {
 
     addMember ():void{
       this.dataSource.push({
-        key: this.dataSource.length + '',
+        key: this.dataSource.length + 1 + '',
         name: '',
         personNumber: '',
-        department: ''
+        department: '',
+        editable: true
       })
+    }
+    handleChange (value:string, key:string, col:string, index:number):void {
+      this.dataSource[index][col] = value
+    }
+    save (record:IDataItem, index:number):void{
+      this.dataSource[index].editable = false
     }
 }
 </script>
