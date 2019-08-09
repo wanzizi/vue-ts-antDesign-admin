@@ -1,51 +1,51 @@
 import Vue from 'vue'
 import App from './App.vue'
-// import router from './router'
+import router from './router'
 import Router from 'vue-router'
 import 'ant-design-vue/dist/antd.css'
 import form3 from './router/form'
 import list from './router/list'
-Vue.use(Router)
-Vue.config.productionTip = false
-function adapter (option) {
-  return new Router({
-    routes: [
-      {
-        path: '/',
-        name: 'index',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '@/views/Index.vue'),
-        children: [
-          form3,
-          {
-            path: 'list',
-            name: 'list',
-            meta: {
-              chineseName: '标准列表'
-            },
-            desc: '',
-            component: () => import('@/views/list/Index.vue'),
-            children: [
-              {
-                path: 'lbb',
-                name: 'list-table',
-                meta: {
-                  chineseName: '查询表格',
-                  desc: ''
-                },
-                component: () => import('@/components/List.vue')
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  })
-}
+// Vue.use(Router)
+// Vue.config.productionTip = false
+// function adapter (option) {
+//   return new Router({
+//     routes: [
+//       {
+//         path: '/',
+//         name: 'index',
+//         // route level code-splitting
+//         // this generates a separate chunk (about.[hash].js) for this route
+//         // which is lazy-loaded when the route is visited.
+//         component: () => import(/* webpackChunkName: "about" */ '@/views/Index.vue'),
+//         children: [
+//           form3,
+//           {
+//             path: 'list',
+//             name: 'list',
+//             meta: {
+//               chineseName: '标准列表'
+//             },
+//             desc: '',
+//             component: () => import('@/views/list/Index.vue'),
+//             children: [
+//               {
+//                 path: 'lbb',
+//                 name: 'list-table',
+//                 meta: {
+//                   chineseName: '查询表格',
+//                   desc: ''
+//                 },
+//                 component: () => import('@/components/List.vue')
+//               }
+//             ]
+//           }
+//         ]
+//       }
+//     ]
+//   })
+// }
 
-let router = adapter(option)
+// let router = adapter(option)
 
 // interface event={
 //   notify: (type: "error" | "success", msg: string) => void
